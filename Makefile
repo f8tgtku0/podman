@@ -36,7 +36,7 @@ binaries: $(BINARY) $(REMOTE_BINARY) ## Build all binaries
 $(BINARY): ## Build podman binary
 	$(GO) build \
 		$(GOFLAGS) \
-		-tags "$(GOTAGSS)" \
+		-tags "$(GOTAGS)" \
 		-ldflags "$(GO_LDFLAGS)" \
 		-o $@ ./cmd/podman
 
@@ -44,7 +44,7 @@ $(BINARY): ## Build podman binary
 $(REMOTE_BINARY): ## Build podman-remote binary
 	$(GO) build \
 		$(GOFLAGS) \
-		-tags "$(GOTAGSS) remote" \
+		-tags "$(GOTAGS) remote" \
 		-ldflags "$(GO_LDFLAGS)" \
 		-o $@ ./cmd/podman
 
@@ -53,11 +53,11 @@ test: unit integration ## Run all tests
 
 .PHONY: unit
 unit: ## Run unit tests
-	$(GO) test -v -tags "$(GOTAGSS)" ./...
+	$(GO) test -v -tags "$(GOTAGS)" ./...
 
 .PHONY: integration
 integration: ## Run integration tests
-	$(GO) test -v -tags "$(GOTAGSS) integration" ./test/...
+	$(GO) test -v -tags "$(GOTAGS) integration" ./test/...
 
 .PHONY: lint
 lint: ## Run linters
