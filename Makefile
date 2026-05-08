@@ -17,6 +17,9 @@ GOTAGS ?= $(shell ./hack/btrfs_tag.sh) $(shell ./hack/btrfs_installed_tag.sh) $(
 GOFLAGS ?= -trimpath
 GO_LDFLAGS ?= $(shell ./hack/ldflags.sh)
 
+# Increase default lint timeout from 10m to 15m since my machine is slow
+LINT_TIMEOUT ?= 15m
+
 BINDIR ?= $(DESTDIR)/usr/bin
 LIBEXECDIR ?= $(DESTDIR)/usr/libexec
 MANDIR ?= $(DESTDIR)/usr/share/man
@@ -61,7 +64,7 @@ integration: ## Run integration tests
 
 .PHONY: lint
 lint: ## Run linters
-	golangci-lint run --timeout=10m
+	golangci-lint run --timeout=$(LINT_TIMEOUT)
 
 .PHONY: vendor
 vendor: ## Update vendor directory
